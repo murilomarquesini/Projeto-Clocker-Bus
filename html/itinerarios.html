@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clocker Bus - Itinerários</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="../imagens/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        main{
+            margin: 50px auto;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        h3{
+            color: #04191F;
+            text-align: center;
+        }
+
+        .tabelas table{
+            border-radius: 5px;
+        }
+
+        .tabelas th{
+            background-color: #34A0A4;
+            border-radius: 5px;
+            color: #04191F;
+            font-family: 'Cambria';
+            font-size: large;
+
+            width: 200px;
+            height: 40px;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bus"></i>
+            <span>CL<i class="fa-regular fa-clock" style="font-size: 20px;"></i>CKER BUS</span>
+        </div>
+        <nav>
+            <a href="../index.html">Página Inicial</a>
+            <a href="./itinerarios.html" class="ativo">Itinerários</a>
+            <a href="./historico.html">Historicos</a>
+            <a href="#" id="btnMinhaConta">Minha Conta</a>
+        </nav>
+    </header>
+        
+    
+    <main>
+        <div>
+            <h3>Salve seus itinerários favoritos para acessar rapidamente quando precisar!</h3>
+        </div>
+
+
+        <div class="tabelas">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">Manhã</th>
+                    </tr>
+                    <tr>
+                        <th>Endereço Saída</th>
+                        <th>Horário Saída</th>
+                        <th>Previsão de Chegada</th>
+                        <th>Endereço Destino</th>
+                        <th>Pontos de Parada</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <button class="button-add"><i class="fa-solid fa-plus"></i></button>
+        </div>
+
+
+        <div class="tabelas">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">Tarde</th>
+                    </tr>
+                    <tr>
+                        <th>Endereço Saída</th>
+                        <th>Horário Saída</th>
+                        <th>Previsão de Chegada</th>
+                        <th>Endereço Destino</th>
+                        <th>Pontos de Parada</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <button class="button-add"><i class="fa-solid fa-plus"></i></button>
+        </div>
+
+
+        <div class="tabelas">
+            <table>
+                <thead>
+                    <tr>
+                        <th colspan="5">Noite</th>
+                    </tr>
+                    <tr>
+                        <th>Endereço Saída</th>
+                        <th>Horário Saída</th>
+                        <th>Previsão de Chegada</th>
+                        <th>Endereço Destino</th>
+                        <th>Pontos de Parada</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+            <button class="button-add"><i class="fa-solid fa-plus"></i></button>
+        </div>
+    </main>
+
+
+    <footer>
+        <a href="#">Seja Parceiro e Investidor</a>
+        <a href="#">Entre em Contato</a>
+        <a href="#">Trabalhe Conosco</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Investidores e Parceiro</a>
+    </footer>
+
+
+
+    <!--Minha Conta-->
+
+    <!-- OVERLAY -->
+    <div id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebarConta" class="sidebar-conta">
+        <div class="sidebar-header">
+            <h2>Minha Conta</h2>
+            <button id="fecharSidebar">&times;</button>
+        </div>
+
+        <div class="sidebar-content">
+            <div class="perfil">
+                <div class="foto-perfil"></div>
+                <h3>Nome do Usuário</h3>
+                <p>usuario@email.com</p>
+            </div>
+
+            <ul class="menu-conta">
+                <li><a href="#">Editar Perfil</a></li>
+                <li><a href="#">Meus Favoritos</a></li>
+                <li><a href="#">Configurações</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+
+            var btn = document.getElementById("btnMinhaConta");
+            var sidebar = document.getElementById("sidebarConta");
+            var overlay = document.getElementById("overlay");
+            var fechar = document.getElementById("fecharSidebar");
+
+            btn.onclick = function(e){
+                e.preventDefault();
+                sidebar.style.right = "0";
+                overlay.style.display = "block";
+            }
+
+            fechar.onclick = function(){
+                sidebar.style.right = "-350px";
+                overlay.style.display = "none";
+            }
+
+            overlay.onclick = function(){
+                sidebar.style.right = "-350px";
+                overlay.style.display = "none";
+            }
+
+        }
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Clocker Bus - Cadastro</title>
+    <link rel="icon" type="image/png" href="../imagens/favicon.png">
+    <link rel="stylesheet" href="../css/cssL.css">
+</head>
+<body>
+
+    <div class="background">
+
+        <div class="card">
+
+            <!-- LADO ESQUERDO -->
+            <div class="left">
+            
+
+            <div class="logo"></div>
+            
+            <img src="../imagens/logo.png" alt="Clocker Bus" class="logo">
+
+            
+
+            </div>
+
+            <!-- LADO DIREITO -->
+            <div class="right">
+                <div class="form-container">
+
+                    <h2>Cadastro</h2>
+
+                    <div class="form-box">
+                        <form id="formulario" novalidate>
+                            <input id="nome" type="text" placeholder="Nome completo" minlength="5" pattern="^[A-Za-zÀ-ÿ\s']+$">
+                            <!-- <input type="date" placeholder="Data de nascimento"> --> 
+                            <input id="email" type="email" placeholder="E-mail" minlength="10">
+                            <input id="senha" type="password" placeholder="Crie sua senha" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&]).{8,}$">
+
+                            <button type="submit">Cadastrar</button>
+                        </form>
+                    </div>
+
+                    <p class="register">
+                        Já tem conta? <a href="./login.html">Entrar</a>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+
+        <footer>© 2026 Clocker Bus. Todos os direitos reservados. </footer>
+        <footer> Desenvolvido para disciplina de Interação Humano-Computador. </footer>
+    </div>
+
+    <script src="../js/cadastro.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,133 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*BACKGROUND POR ENQUANTO, VAMOS MUDAR PARA A IMAGEM DE ROTAS*/ 
+.background {
+    height: 100vh;
+    background: linear-gradient(135deg,#b6d6cc);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 900px;
+    height: 520px;
+    background: white;
+    display: flex;
+    border-radius: 25px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* A bolha onde fica a logo */ 
+.left {
+    width: 55%;
+    background:
+        linear-gradient(135deg, #f1fec6,#34a0a4) padding-box,
+        linear-gradient(135deg, #f1fec6,#34a0a4) border-box;
+
+    border: 15px solid transparent;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 40px;
+
+    /*aqui mexe no quanto a bolhinha fica mais esticada etc*/ 
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 700px;
+}
+
+.right {
+    width:60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+}
+
+/*meus formularios */ 
+.form-container {
+    width: 300px;
+}
+
+.form-box {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    background: #fafafa;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+    color: #34a0a4;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+button {
+    padding: 12px;
+    background: #34A0A4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #64B6AC;
+}
+
+.register {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.register a {
+    color: #34a0a4;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #04191f;
+}
+
+.circle {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
+}
+
+.logo {
+    margin-bottom: 10px;
+    width: 100%;
+    height: auto;
+    transform: translate(-20px, -25px); 
+}

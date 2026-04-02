@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-Br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clocker Bus - Histórico</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="../imagens/favicon.png">
+    <link rel="stylesheet" href="../css/style.css">
+
+    <style>
+        .busca-historico {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 15px;
+            padding: 30px 40px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper i {
+            position: absolute;
+            left: 15px;
+            color: var(--cor-texto-geral);
+            font-size: 18px;
+        }
+
+        .input-historico {
+            background-color: #E8E8E8;
+            border: none;
+            padding: 12px 20px 12px 45px;
+            border-radius: 30px;
+            width: 450px;
+            color: var(--cor-texto-geral);
+            font-family: 'Cambria', serif;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .button-buscar-historico {
+            background-color: #F8F8F8;
+            border: 1px solid #ccc;
+            padding: 10px 30px;
+            border-radius: 30px;
+            color: var(--cor-texto-icone);
+            font-family: 'Oswald', sans-serif;
+            font-size: 16px;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+    </style>
+    
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-bus"></i>
+            <span>CL<i class="fa-regular fa-clock" style="font-size: 20px;"></i>CKER BUS</span>
+        </div>
+        <nav>
+            <a href="../index.html">Página Inicial</a>
+            <a href="./itinerarios.html">Itinerários</a>
+            <a href="./historico.html" class="ativo">Historicos</a>
+            <a href="#" id="btnMinhaConta">Minha Conta</a>
+        </nav>
+    </header>
+        <div class="busca-historico">
+            <div class="input-wrapper">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" class="input-historico" placeholder="busque o destino desejado ...">
+            </div>
+            <button class="button-buscar-historico">Buscar</button>
+        </div>
+
+    <main> 
+        <div class="coluna">
+            <h3 class="titulo-secao font-oswald">principais Rotas</h3>
+
+            <div id="container-rotas"></div>
+
+            <button class="button-add" id="btn-adicionar"><i class="fa-solid fa-plus"></i></button>
+        </div>
+
+        <div class="coluna">
+            <h3 class="titulo-secao font-oswald">Ônibus próximo a você...</h3>
+            <div class="mapa-container">
+                <i class="fa-solid fa-location-dot pino-mapa pino-1"></i>
+                <i class="fa-solid fa-location-dot pino-mapa pino-2"></i>
+                <i class="fa-solid fa-location-dot pino-mapa pino-3"></i>
+            </div>
+        </div>  
+    </main>
+
+    <footer>
+        <a href="#">Seja Parceiro e Investidor</a>
+        <a href="#">Entre em Contato</a>
+        <a href="#">Trabalhe Conosco</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Investidores e Parceiro</a>
+    </footer>
+    
+
+
+    <!--Minha Conta-->
+
+    <!-- OVERLAY -->
+    <div id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <div id="sidebarConta" class="sidebar-conta">
+        <div class="sidebar-header">
+            <h2>Minha Conta</h2>
+            <button id="fecharSidebar">&times;</button>
+        </div>
+
+        <div class="sidebar-content">
+            <div class="perfil">
+                <div class="foto-perfil"></div>
+                <h3>Nome do Usuário</h3>
+                <p>usuario@email.com</p>
+            </div>
+
+            <ul class="menu-conta">
+                <li><a href="#">Editar Perfil</a></li>
+                <li><a href="#">Meus Favoritos</a></li>
+                <li><a href="#">Configurações</a></li>
+                <li><a href="#">Sair</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+
+            var btn = document.getElementById("btnMinhaConta");
+            var sidebar = document.getElementById("sidebarConta");
+            var overlay = document.getElementById("overlay");
+            var fechar = document.getElementById("fecharSidebar");
+
+            btn.onclick = function(e){
+                e.preventDefault();
+                sidebar.style.right = "0";
+                overlay.style.display = "block";
+            }
+
+            fechar.onclick = function(){
+                sidebar.style.right = "-350px";
+                overlay.style.display = "none";
+            }
+
+            overlay.onclick = function(){
+                sidebar.style.right = "-350px";
+                overlay.style.display = "none";
+            }
+
+        }
+    </script>
+
+    <script src="../js/principaisRotas.js"></script>
+</body>
+</html>
