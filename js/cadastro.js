@@ -3,8 +3,6 @@
 
 //cadastro 
 
-let usuariosCadastrados = [];
-
 const nome = document.querySelector('#nome');
 const email = document.querySelector('#email'); 
 const senha = document.querySelector('#senha');
@@ -50,16 +48,22 @@ function validacoes(){
 
 
 function cadastroUsuario(){
-    usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+    let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     const usuario = {
         nome: nome.value.trim(),
         email: email.value.trim(),
-        senha: senha.value.trim()
+        senha: senha.value.trim(),
+        avatar: '/imagens/avatares/avatar0.png',
+        itinerariosSalvos: [],
+        historicoLinhas: [],
+        linhasSalvas: []  //caso a parte me meus favoritos / linhas salvas seja implementada
     };
 
     usuariosCadastrados.push(usuario);
     localStorage.setItem("usuarios", JSON.stringify(usuariosCadastrados));
+
+    localStorage.setItem("usuarioLogado", JSON.stringify(usuario));
 }
 
 
@@ -71,7 +75,7 @@ if(formulario){
         e.preventDefault();
 
         if(validacoes()){
-            usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
+            let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
             let emailExiste = false;
             usuariosCadastrados.forEach(function(usuario){
@@ -88,7 +92,7 @@ if(formulario){
                 email.value = '';
                 senha.value = ''; 
             
-            } else {   
+            } else {                   
                 cadastroUsuario();
                 alert('Cadastro realizado com sucesso!');
 
@@ -104,6 +108,7 @@ if(formulario){
 
 
 // ------------------------------------------------------------------------------
+
 
 //login
 
@@ -155,7 +160,7 @@ if(formLogin){
                 window.location.replace("../index.html");
             
             } else {
-                alert('Usuário não registrado');
+                alert('Usuário e/ou senha incorreto(s)');
 
                 emailLogin.value = '';
                 senhaLogin.value = '';

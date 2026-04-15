@@ -1,0 +1,75 @@
+#formItinerarios{
+    width: 90%;
+    margin: auto;
+}
+
+#formItinerarios h5{
+    margin-top: 15px;
+    color: #04191f9a;
+    font-family: 'Oswald', sans-serif;
+}
+
+#formItinerarios input{
+    width: 100%;
+    height: 35px;
+    padding: 15px;
+
+    background-color: rgba(255, 255, 255, 0.5);
+    border: none;
+    border-radius: 10px;
+}
+
+#formItinerarios label{
+    color: #04191fdf;
+    margin: 10px 0 5px 0;
+}
+
+
+.linha td{
+    background-color: #F1FEC6;
+    border: 3px solid #B6D6CC;
+    border-radius: 5px;
+
+    height: 40px;
+    color: #04191f;
+    text-align: center;
+    font-size: 18px;
+}
+
+.buscarPontos{
+    background-color: #34A0A4;
+    border: none;
+    border-radius: 15px;
+
+    font-size: 16px;
+    color: white;
+    width: 80px;
+    height: 30px;
+}
+
+.buscarPontos:hover{
+    background-color: #236e70;
+}
+
+.excluirItinerario{
+    background-color: #f86653;
+    border: none;
+    border-radius: 15px;
+
+    font-size: 16px;
+    color: white;
+    width: 80px;
+    height: 30px;
+}
+
+.excluirItinerario:hover{
+    background-color: #A31300;
+    color: white;
+}
+
+
+#pontosParada .modal-content{
+    border-radius: 15px;
+    font-size: 18px;
+    color: #04191f;
+}

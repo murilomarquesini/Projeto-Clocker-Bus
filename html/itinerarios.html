@@ -11,8 +11,12 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
     <link rel="icon" type="image/png" href="../imagens/favicon.png">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleItinerarios.css">
 
     <style>
         main{
@@ -34,9 +38,12 @@
         .tabelas th{
             background-color: #34A0A4;
             border-radius: 5px;
+            border: 3px solid #B6D6CC;
+
             color: #04191F;
             font-family: 'Cambria';
             font-size: large;
+            text-align: center;
 
             width: 200px;
             height: 40px;
@@ -53,7 +60,7 @@
         <nav>
             <a href="../index.html">Página Inicial</a>
             <a href="./itinerarios.html" class="ativo">Itinerários</a>
-            <a href="./historico.html">Historicos</a>
+            <a href="./historico.html">Histórico</a>
             <a href="#" id="btnMinhaConta">Minha Conta</a>
         </nav>
     </header>
@@ -69,7 +76,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="5">Manhã</th>
+                        <th colspan="6">Manhã</th>
                     </tr>
                     <tr>
                         <th>Endereço Saída</th>
@@ -77,12 +84,13 @@
                         <th>Previsão de Chegada</th>
                         <th>Endereço Destino</th>
                         <th>Pontos de Parada</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="manha"></tbody>
             </table>
 
-            <button class="button-add"><i class="fa-solid fa-plus"></i></button>
+            <button class="button-add novoItinerario"><i class="fa-solid fa-plus"></i></button>
         </div>
 
 
@@ -90,7 +98,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="5">Tarde</th>
+                        <th colspan="6">Tarde</th>
                     </tr>
                     <tr>
                         <th>Endereço Saída</th>
@@ -98,12 +106,13 @@
                         <th>Previsão de Chegada</th>
                         <th>Endereço Destino</th>
                         <th>Pontos de Parada</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="tarde"></tbody>
             </table>
 
-            <button class="button-add"><i class="fa-solid fa-plus"></i></button>
+            <button class="button-add novoItinerario"><i class="fa-solid fa-plus"></i></button>
         </div>
 
 
@@ -111,7 +120,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th colspan="5">Noite</th>
+                        <th colspan="6">Noite</th>
                     </tr>
                     <tr>
                         <th>Endereço Saída</th>
@@ -119,14 +128,62 @@
                         <th>Previsão de Chegada</th>
                         <th>Endereço Destino</th>
                         <th>Pontos de Parada</th>
+                        <th></th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody id="noite"></tbody>
             </table>
 
-            <button class="button-add"><i class="fa-solid fa-plus"></i></button>
+            <button class="button-add novoItinerario"><i class="fa-solid fa-plus"></i></button>
+        </div>
+
+        <div class="modal fade" id="pontosParada" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Pontos de parada do itinerário</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul id="listaPontos"></ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
+
+    
+    <!-- MODAL PARA ADICIONAR AS INFORMAÇÕES DO ITINERÁRIO -->
+
+    <div class="modal fade" id="modalItinerario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <form id="formItinerarios">
+                        <h5>Adicionar Novo Itinerário</h5>
+
+                        <label for="endSaida">Endereço de saída:</label> <br>
+                        <input type="text" id="endSaida" placeholder="digite aqui"> <br><br>
+                        
+                        <label for="endChegada">Endereço do destino:</label> <br>
+                        <input type="text" id="endChegada" placeholder="digite aqui">
+                    </form>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="botao botaoCancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="botao botaoSalvar" id="salvarItinerario" data-bs-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
 
     <footer>
@@ -143,7 +200,7 @@
 
     <!-- OVERLAY -->
     <div id="overlay"></div>
-
+    
     <!-- SIDEBAR -->
     <div id="sidebarConta" class="sidebar-conta">
         <div class="sidebar-header">
@@ -153,19 +210,81 @@
 
         <div class="sidebar-content">
             <div class="perfil">
-                <div class="foto-perfil"></div>
-                <h3>Nome do Usuário</h3>
-                <p>usuario@email.com</p>
+                <div class="foto-perfil">
+                    <img id="exibirAvatar" class="imgAvatar" src="" alt="Avatar">
+                </div>
+
+                <h3 id="nomeUsuario"></h3>
+                <p id="emailUsuario"></p>
             </div>
 
             <ul class="menu-conta">
-                <li><a href="#">Editar Perfil</a></li>
-                <li><a href="#">Meus Favoritos</a></li>
-                <li><a href="#">Configurações</a></li>
-                <li><a href="#">Sair</a></li>
+                <li><a href="#" id="realizarCadastro">Cadastre-se ou faça seu login</a></li>
+
+                <li><a href="#" class="opcaoPerfil" id="editarPerfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar Perfil</a></li>
+                <li><a href="#" class="opcaoPerfil">Meus Favoritos</a></li>
+                <li><a href="#" class="opcaoPerfil">Configurações</a></li>
+                <li><a href="#" class="opcaoPerfil" id="sairLogin">Sair</a></li>
             </ul>
         </div>
     </div>
+
+
+    <!-- EDITAR PERFIL -->
+
+    <div class="modal fade modalPerfil" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="avatar">
+                        <i class="fa-solid fa-chevron-left seta" id="esquerda"></i>
+
+                        <div class="fotoPerfilModal">
+                            <img id="editarAvatar" class="imgAvatar" src="" alt="Avatar">
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right seta" id="direita"></i>
+                    </div>
+
+                    <div class="conteudoCampos">
+                        <hr>
+                        <p>Deixe em branco se não quiser alterar a informação</p>
+
+                        <h5>Alterar nome</h5>
+
+                        <div class="campo">
+                            <label for="nomePerfil">Nome:</label> <br>
+                            <input type="text" id="nomePerfil" placeholder="digite aqui" minlength="5" pattern="^[A-Za-zÀ-ÿ\s']+$"> <br><br>
+                        </div>
+
+                        <h5>Alterar senha</h5>
+
+                        <div class="campo">
+                            <label for="senhaAtual">Senha atual:</label> <br>
+                            <input type="password" id="senhaAtual" placeholder="digite aqui"> <br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="senhaNova">Nova senha:</label> <br>
+                            <input type="password" id="senhaNova" placeholder="digite aqui" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$"> <br><br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="botao botaoCancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="botao botaoSalvar" id="salvarPerfil" data-bs-dismiss="modal">Salvar</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 
     <script>
         window.onload = function() {
@@ -194,5 +313,8 @@
         }
     </script>
     
+    <script src="../js/conta.js"></script>
+    <script src="../js/itinerarios.js"></script>
+
 </body>
 </html>
