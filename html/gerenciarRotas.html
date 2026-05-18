@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerenciar Rotas | ClockerBus</title>
+
+    <!-- CSS do projeto -->
+    <link rel="stylesheet" href="../css/style.css">
+
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="logo">
+        <i class="fa-solid fa-bus"></i>
+        <h2>ClockerBus</h2>
+    </div>
+
+    <nav class="menu">
+        <a href="../index.html">Início</a>
+        <a href="#">Minha Conta</a>
+        <a class="ativo">Gerenciar Rotas</a>
+    </nav>
+
+</header>
+
+
+<!-- ================= CONTEÚDO ================= -->
+
+<main class="container-rotas">
+
+    <!-- TÍTULO -->
+    <section class="topo-rotas">
+
+        <h1>
+            <i class="fa-solid fa-route"></i>
+            Gerenciar Rotas
+        </h1>
+
+        <button class="btn-nova-rota">
+            <i class="fa-solid fa-plus"></i>
+            Nova Rota
+        </button>
+
+    </section>
+
+
+
+    <!-- ================= LISTA DE ROTAS ================= -->
+
+    <section class="lista-rotas">
+
+        <!-- ROTA 1 -->
+        <article class="card-rota-motorista">
+
+            <div class="info-rota">
+
+                <h3>IFSP → Terminal Central</h3>
+
+                <p>
+                    <i class="fa-solid fa-clock"></i>
+                    Saída: 06:30
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    12 paradas cadastradas
+                </p>
+
+                <span class="status ativo">
+                    ● Em operação
+                </span>
+
+            </div>
+
+            <div class="acoes-rota">
+
+                <button class="btn-acao iniciar">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+
+                <button class="btn-acao editar">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <button class="btn-acao pausar">
+                    <i class="fa-solid fa-pause"></i>
+                </button>
+
+                <button class="btn-acao excluir">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- ROTA 2 -->
+        <article class="card-rota-motorista">
+
+            <div class="info-rota">
+
+                <h3>Centro → Campus Universitário</h3>
+
+                <p>
+                    <i class="fa-solid fa-clock"></i>
+                    Saída: 07:40
+                </p>
+
+                <p>
+                    <i class="fa-solid fa-location-dot"></i>
+                    8 paradas cadastradas
+                </p>
+
+                <span class="status pausado">
+                    ● Pausada
+                </span>
+
+            </div>
+
+            <div class="acoes-rota">
+
+                <button class="btn-acao iniciar">
+                    <i class="fa-solid fa-play"></i>
+                </button>
+
+                <button class="btn-acao editar">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+
+                <button class="btn-acao excluir">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </article>
+
+
+
+        <!-- ROTA VAZIA (EXEMPLO) -->
+        <article class="card-vazio">
+
+            <i class="fa-solid fa-bus"></i>
+            <p>Nenhuma nova rota cadastrada.</p>
+
+        </article>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+
+    <p>© 2025 ClockerBus — Sistema de Rotinas e Transporte Acadêmico</p>
+
+</footer>
+
+<script src="../js/gerenciarRotas.js"></script>
+
+</body>
+</html>

@@ -4,7 +4,8 @@
 }
 
 #container-historico section{
-    width: 50%;
+    width: 60%;  /*antes era 50%*/
+    margin: 0 auto;  /*tirar isso depois*/
 }
 
 .subtitulo{
@@ -13,14 +14,19 @@
 
     font-family: 'Oswald', sans-serif;
     background-color: #34A0A4;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 .container-conteudo{
     margin: 10px 30px;
-    padding: 10px 10px;
+    padding: 5px;
     background-color: #f1fec680;
-    border-radius: 20px;
+    border-radius: 10px;
+}
+
+.container-conteudo .info-aviso{
+    padding: 10px;
+    font-size: 18px;
 }
 
 

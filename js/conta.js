@@ -96,13 +96,13 @@ if(usuarioLogado){
     if(abaItinerario && abaHistorico){
         abaItinerario.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Cadastre-se ou faça seu login para acessar a aba Itinerários!');
+            alert('Cadastre-se ou faça seu login na aba "Minha Conta" para acessar aos Itinerários!');
             window.location.replace('/index.html');
         });
 
         abaHistorico.addEventListener('click', (e) => {
             e.preventDefault();
-            alert('Cadastre-se ou faça seu login para acessar a aba Histórico!');
+            alert('Cadastre-se ou faça seu login na aba "Minha Conta" para acessar ao Histórico!');
             window.location.replace('/index.html');
         });
     }
@@ -172,6 +172,32 @@ function atualizaAvatar(){
 
 exibeDados();
 atualizaAvatar();
+
+
+
+//para a visualização da senha
+function visualizarSenha(){
+    const iconesOlho = document.querySelectorAll('.olho-senha');
+
+    iconesOlho.forEach(olho => {
+        olho.addEventListener('click', function(){
+            const campoSenha = this.parentElement.querySelector('input');
+
+            if(campoSenha.type === 'password'){
+                campoSenha.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            
+            } else {
+                campoSenha.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    });
+}
+
+visualizarSenha();
 
 
 
@@ -280,3 +306,51 @@ if(sair){
         window.location.replace('../index.html');
     }); 
 }
+
+
+// --------------------------------------------------------------------------------------
+
+//AVISO
+function emDesenvolvimento(nome) {
+    const aviso = document.getElementById("avisoDev");
+    const mensagem = document.getElementById("mensagemAviso");
+
+    if(!aviso || !mensagem) return;
+
+    mensagem.innerText = `${nome} ainda está em desenvolvimento.`;
+
+    aviso.classList.add("show");
+
+    setTimeout(() => {
+        aviso.classList.remove("show");
+    }, 1500);
+}
+
+
+//EM DESENVOLVIMENTO
+document.addEventListener("DOMContentLoaded", () => {
+
+    const btnFavoritos = document.querySelector('#btnFavoritos');
+    const btnConfiguracoes = document.querySelector('#btnConfiguracoes');
+
+    if(btnFavoritos){
+        btnFavoritos.addEventListener('click', (e) => {
+            e.preventDefault();
+            emDesenvolvimento('Meus Favoritos');
+            console.log("clicou favoritos");
+        });
+    }
+
+    if(btnConfiguracoes){
+        btnConfiguracoes.addEventListener('click', (e) => {
+            e.preventDefault();
+            emDesenvolvimento('Configurações');
+        });
+    }
+});
+
+
+// --------------------------------------------------------------------------------------
+
+// PARA OS TESTES USANDO JEST
+module.exports = { validacoes }; 

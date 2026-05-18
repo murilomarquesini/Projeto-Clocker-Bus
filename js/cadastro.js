@@ -1,14 +1,35 @@
-//melhorar os feedbacks depois (todos os alerts)
+//para a visualização da senha
+function visualizarSenha(){
+    const iconesOlho = document.querySelectorAll('.olho-senha');
+
+    iconesOlho.forEach(olho => {
+        olho.addEventListener('click', function(){
+            const campoSenha = this.parentElement.querySelector('input');
+
+            if(campoSenha.type === 'password'){
+                campoSenha.type = 'text';
+                this.classList.remove('fa-eye');
+                this.classList.add('fa-eye-slash');
+            
+            } else {
+                campoSenha.type = 'password';
+                this.classList.remove('fa-eye-slash');
+                this.classList.add('fa-eye');
+            }
+        });
+    });
+}
+
+visualizarSenha();
 
 
 //cadastro 
 
-const nome = document.querySelector('#nome');
-const email = document.querySelector('#email'); 
-const senha = document.querySelector('#senha');
-
-
 function validacoes(){
+    const nome = document.querySelector('#nome');
+    const email = document.querySelector('#email'); 
+    const senha = document.querySelector('#senha');
+
     if(nome.value.length == 0){
         alert('O nome é obrigatório');
         return false;
@@ -46,8 +67,11 @@ function validacoes(){
 }
 
 
-
 function cadastroUsuario(){
+    const nome = document.querySelector('#nome');
+    const email = document.querySelector('#email'); 
+    const senha = document.querySelector('#senha');
+
     let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
 
     const usuario = {
@@ -67,12 +91,12 @@ function cadastroUsuario(){
 }
 
 
-
 const formulario = document.querySelector('#formulario');
 
 if(formulario){
     formulario.addEventListener('submit', function(e){
         e.preventDefault();
+
 
         if(validacoes()){
             let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
@@ -112,11 +136,11 @@ if(formulario){
 
 //login
 
-const emailLogin = document.querySelector('#emailLogin');
-const senhaLogin = document.querySelector('#senhaLogin');
-
-
 function validacaoLogin(){
+    const emailLogin = document.querySelector('#emailLogin');
+    const senhaLogin = document.querySelector('#senhaLogin');
+
+
     if(emailLogin.value.length == 0){
         alert('Informe o email para o login');
         return false;
@@ -131,11 +155,15 @@ function validacaoLogin(){
 }
 
 
+
 const formLogin = document.querySelector('#formLogin');
 
 if(formLogin){
     formLogin.addEventListener('submit', function(e){
         e.preventDefault();
+
+        const emailLogin = document.querySelector('#emailLogin');
+        const senhaLogin = document.querySelector('#senhaLogin');
 
         if(validacaoLogin()){
             let usuariosCadastrados = JSON.parse(localStorage.getItem("usuarios")) || [];
@@ -167,4 +195,14 @@ if(formLogin){
             }
         }
     });
+}
+
+
+
+// --------------------------------------------------------------------------------------
+
+// PARA OS TESTES USANDO JEST
+
+if (typeof module !== 'undefined') {
+    module.exports = { validacoes };
 }

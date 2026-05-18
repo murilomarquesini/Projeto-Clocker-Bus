@@ -40,11 +40,13 @@
             <div class="container-conteudo" id="historico"></div>
         </section>
 
+        <!--
         <section>
             <h4 class="subtitulo">Linhas salvas</h4>
 
             <div class="container-conteudo" id="favoritas"></div>
         </section>
+        -->
 
         
         <div class="modal fade" id="informacoesLinha" tabindex="-1">
@@ -99,8 +101,8 @@
                 <li><a href="#" id="realizarCadastro">Cadastre-se ou faça seu login</a></li>
 
                 <li><a href="#" class="opcaoPerfil" id="editarPerfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar Perfil</a></li>
-                <li><a href="#" class="opcaoPerfil">Meus Favoritos</a></li>
-                <li><a href="#" class="opcaoPerfil">Configurações</a></li>
+                <li><a href="#" class="opcaoPerfil" id="btnFavoritos">Meus Favoritos</a></li>
+                <li><a href="#" class="opcaoPerfil" id="btnConfiguracoes">Configurações</a></li>
                 <li><a href="#" class="opcaoPerfil" id="sairLogin">Sair</a></li>
             </ul>
         </div>
@@ -144,12 +146,20 @@
 
                         <div class="campo">
                             <label for="senhaAtual">Senha atual:</label> <br>
-                            <input type="password" id="senhaAtual" placeholder="digite aqui"> <br>
+
+                            <div class="senha-container">
+                                <input type="password" id="senhaAtual" placeholder="digite aqui"> 
+                                <i class="fa-solid fa-eye olho-senha"></i>
+                            </div> <br>
                         </div>
 
                         <div class="campo">
                             <label for="senhaNova">Nova senha:</label> <br>
-                            <input type="password" id="senhaNova" placeholder="digite aqui" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$"> <br><br>
+
+                            <div class="senha-container">
+                                <input type="password" id="senhaNova" placeholder="digite aqui" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$"> 
+                                <i class="fa-solid fa-eye olho-senha"></i>
+                            </div> <br>
                         </div>
                     </div>
                 </div>
@@ -160,6 +170,18 @@
                 </div>
             </div>
 
+        </div>
+    </div>
+
+
+    <!-- AVISO -->
+    <div id="avisoDev" class="toast-dev">
+        <div class="toast-content">
+            <span class="icone">⚠️</span>
+            <div>
+                <strong>Atenção</strong>
+                <p id="mensagemAviso"></p>
+            </div>
         </div>
     </div>
 

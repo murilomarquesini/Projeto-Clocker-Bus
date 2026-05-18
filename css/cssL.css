@@ -84,6 +84,35 @@ input {
     border-radius: 8px;
 }
 
+input::-ms-reveal,
+input::-ms-clear {
+    display: none;
+}
+
+
+.senha-container{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.senha-container input{
+    margin-bottom: 0;
+    padding-right: 40px;
+}
+
+.olho-senha{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: gray;
+    z-index: 10;
+}
+
+
 button {
     padding: 12px;
     background: #34A0A4;
