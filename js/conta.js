@@ -97,13 +97,11 @@ if(usuarioLogado){
         abaItinerario.addEventListener('click', (e) => {
             e.preventDefault();
             alert('Cadastre-se ou faça seu login na aba "Minha Conta" para acessar aos Itinerários!');
-            window.location.replace('/index.html');
         });
 
         abaHistorico.addEventListener('click', (e) => {
             e.preventDefault();
             alert('Cadastre-se ou faça seu login na aba "Minha Conta" para acessar ao Histórico!');
-            window.location.replace('/index.html');
         });
     }
 }
@@ -353,4 +351,4 @@ document.addEventListener("DOMContentLoaded", () => {
 // --------------------------------------------------------------------------------------
 
 // PARA OS TESTES USANDO JEST
-module.exports = { validacoes }; 
+module.exports = { validacoes };
