@@ -2,18 +2,26 @@
 
 
 //lista de avatares disponíveis
+let baseCaminho = './';
+    if (window.location.pathname.includes('/motorista/')) {
+        baseCaminho = '../../';
+    } else if (window.location.pathname.includes('/html/')) {
+        baseCaminho = '../';
+    }
+
+// Lista de avatares dinâmica
 const avatares = [
-    '/imagens/avatares/avatar0.png',
-    '/imagens/avatares/avatar1.png',
-    '/imagens/avatares/avatar2.png',
-    '/imagens/avatares/avatar3.png',
-    '/imagens/avatares/avatar4.png',
-    '/imagens/avatares/avatar5.png',
-    '/imagens/avatares/avatar6.png',
-    '/imagens/avatares/avatar7.png',
-    '/imagens/avatares/avatar8.png',
-    '/imagens/avatares/avatar9.png',
-    '/imagens/avatares/avatar10.png',
+    baseCaminho + 'imagens/avatares/avatar0.png',
+    baseCaminho + 'imagens/avatares/avatar1.png',
+    baseCaminho + 'imagens/avatares/avatar2.png',
+    baseCaminho + 'imagens/avatares/avatar3.png',
+    baseCaminho + 'imagens/avatares/avatar4.png',
+    baseCaminho + 'imagens/avatares/avatar5.png',
+    baseCaminho + 'imagens/avatares/avatar6.png',
+    baseCaminho + 'imagens/avatares/avatar7.png',
+    baseCaminho + 'imagens/avatares/avatar8.png',
+    baseCaminho + 'imagens/avatares/avatar9.png',
+    baseCaminho + 'imagens/avatares/avatar10.png',
 ];
 
 //o ideal não é usar variável global - vou mudar isso depois
@@ -88,8 +96,16 @@ if(usuarioLogado){
     }
 
     if(opcaoCadastro){
-        opcaoCadastro.addEventListener('click', () => {
-            window.location.replace('../html/cadastro.html');
+        opcaoCadastro.addEventListener('click', (e) => {
+            e.preventDefault(); 
+            
+            if (window.location.pathname.includes('/motorista/')) {
+                window.location.href = '../cadastro.html';
+            } else if (window.location.pathname.includes('/html/')) {
+                window.location.href = 'cadastro.html';
+            } else {
+                window.location.href = 'html/cadastro.html';
+            }
         });
     }
 
@@ -301,9 +317,18 @@ if(sair){
     sair.addEventListener('click', () => {
         localStorage.removeItem("usuarioLogado");
         alert('Saindo...');
-        window.location.replace('../index.html');
+        
+        // Retorna para o index 
+        if (window.location.pathname.includes('/motorista/')) {
+            window.location.href = '../../index.html';
+        } else if (window.location.pathname.includes('/html/')) {
+            window.location.href = '../index.html';
+        } else {
+            window.location.href = 'index.html';
+        }
     }); 
 }
+
 
 
 // --------------------------------------------------------------------------------------
