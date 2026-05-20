@@ -456,7 +456,7 @@ if (containerMapaUber && typeof L !== 'undefined') {
 
     function rastrearMotoristaReal() {
         // Conecta ao servidor Node.js
-        const socket = io('http://localhost:3000');
+        const socket = io('https://projeto-clocker-bus.onrender.com');
         
         //  vai ficar escutando as atualizações do motorista vindas do servidor
         socket.on('receber_gps', (dadosDoMotorista) => {

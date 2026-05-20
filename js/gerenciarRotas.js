@@ -95,12 +95,8 @@ window.editarRota = function(id) {
         }
     }
 };
-
-// ==========================================
-// VARIÁVEIS GLOBAIS DE RASTREAMENTO E CONEXÃO
-// ==========================================
 let idRastreamentoMotorista = null;
-let socketMotorista = null; // Criamos o nosso "rádio" aqui fora!
+let socketMotorista = null;
 
 window.alterarStatusRota = function(id, novoStatus) {
     const rotas = obterRotas();
@@ -111,26 +107,22 @@ window.alterarStatusRota = function(id, novoStatus) {
         salvarRotas(rotas);
         renderizarRotas(); 
 
-        // ==========================================
-        // LÓGICA DO GPS: ENVIANDO PARA O SERVIDOR
-        // ==========================================
         if (novoStatus === 'Em operação') {
             alert("Viagem iniciada! Transmitindo seu GPS para os passageiros...");
             
-            // Liga o rádio apenas se ele ainda não estiver ligado
             if (!socketMotorista) {
-                socketMotorista = io('http://localhost:3000'); 
+                socketMotorista = io('https://projeto-clocker-bus.onrender.com'); 
             }
             
             if ('geolocation' in navigator) {
                 idRastreamentoMotorista = navigator.geolocation.watchPosition(function(posicao) {
                     const gpsData = {
-                        linha: rotas[index].linha, // Enviamos o nome da linha junto
+                        linha: rotas[index].linha,
                         lat: posicao.coords.latitude,
                         lng: posicao.coords.longitude
                     };
 
-                    // Envia para o servidor Node.js
+                   
                     socketMotorista.emit('enviar_gps', gpsData);
         
                 }, function(erro) {
