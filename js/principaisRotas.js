@@ -1,5 +1,4 @@
-
-localStorage.removeItem('rotasClockerBus');
+// localStorage.removeItem('rotasClockerBus');
 
 function obterRotas() {
     let rotaSalva = JSON.parse(localStorage.getItem('rotasClockerBus'));
@@ -123,12 +122,9 @@ function aplicarInformacoes(){
     const rotas = obterRotas(); 
 
     const rotasFiltradas = rotas.filter(rota => {
-        // Verifica o texto digitado
         const texto = (rota.linha + " " + rota.pontos.join(" ")).toLowerCase();
         const matchTexto = (textoBusca === "" || texto.includes(textoBusca.toLowerCase().trim()));
-
         const matchUni = pontosUni(rota, uniSelecionada);
-
         return matchTexto && matchUni;
     });
 
@@ -249,6 +245,49 @@ function exibeInformacoesLinha(linha){
         conteudoLinha.appendChild(ul);
     } 
 }
+// exibe as fdaculdades no mapa
+function exibeModalFaculdade(nomeDaUni) {
+    const titulo = document.getElementById('tituloModalFaculdade');
+    const conteudo = document.getElementById('conteudoModalFaculdade');
+    const modalElement = document.getElementById('modalFaculdade');
+    
+    if (!titulo || !conteudo || !modalElement) 
+        return;
+
+    titulo.innerHTML = `<i class="fa-solid fa-graduation-cap"></i> Rotas para: <b>${nomeDaUni}</b>`;
+    conteudo.innerHTML = '';
+
+    const rotas = obterRotas();
+    
+    const rotasDestaUni = rotas.filter(rota => pontosUni(rota, nomeDaUni));
+
+        if (rotasDestaUni.length === 0) {
+            conteudo.innerHTML = `<p style="text-align: center; margin-top: 20px;">Nenhuma rota passando por aqui no momento.</p>`;
+        } else {
+        const lista = document.createElement('div');
+            lista.className = 'list-group'; 
+        
+            rotasDestaUni.forEach(rota => {
+                let corstatus = rota.status.includes("Atrasado") ? "var(--cor-alerta)" : (rota.status.includes("Chegando") ? "green" : "var(--cor-texto-geral)");
+            
+            // Cria um cardzinho para cada ônibus
+                lista.innerHTML += `
+                    <div class="list-group-item mb-2" style="border-radius: 8px; border: 1px solid #ccc;">
+                        <div style="display: flex; justify-content: space-between; width: 100%;">
+                            <h6 style="margin: 0;"><b><i class="fa-solid fa-bus"></i> ${rota.linha}</b></h6>
+                            <small style="color: ${corstatus};"><b>${rota.status}</b></small>
+                        </div>
+                        <small><i class="fa-solid fa-clock"></i> Saída: ${rota.saida}</small>
+                    </div>
+                `;
+            });
+        conteudo.appendChild(lista);
+    }
+
+    // Abre o modal na tela
+    const modalInstancia = new bootstrap.Modal(modalElement);
+    modalInstancia.show();
+}
 
 
 function modalFiltros(){
@@ -271,7 +310,6 @@ function limparFiltro(){
     const radios = document.querySelectorAll('input[type="radio"]');
     radios.forEach(radio => radio.checked = false);
     
-    // Limpa a barra de pesquisa também
     const inputTexto = document.querySelector('.input-pill');
     if (inputTexto) inputTexto.value = "";
     
@@ -327,23 +365,24 @@ document.addEventListener('click', (e) => {
 });
 
 const btnBusca = document.querySelector('.button-buscar');
-if(btnBusca){
-    btnBusca.addEventListener('click', (e) => {
-        e.preventDefault();
-        aplicarInformacoes();
-    });
-}
+    if(btnBusca){
+     btnBusca.addEventListener('click', (e) => {
+            e.preventDefault();
+            aplicarInformacoes();
+        });
+    }
 
 const btnSalvarFiltros = document.querySelector('#salvarFiltro');
-if(btnSalvarFiltros){
-    btnSalvarFiltros.addEventListener('click', () => {
-        aplicarInformacoes();
-    });
-}
+    if(btnSalvarFiltros){
+        btnSalvarFiltros.addEventListener('click', () => {
+            aplicarInformacoes();
+        });
+    }
 
 carregarRotas();
 
 
+//mapa interativo
 const containerMapaUber = document.getElementById('mapa-uber');
 
 if (containerMapaUber && typeof L !== 'undefined') {
@@ -366,56 +405,34 @@ if (containerMapaUber && typeof L !== 'undefined') {
         iconAnchor: [22, 45]
     });
 
-    let marcadorUsuario;
+    //  Ícone especial para as Faculdades (Chapéu de formatura)
+    const iconeFaculdade = L.icon({
+        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3068/3068098.png', 
+        iconSize: [35, 35],
+        iconAnchor: [17, 35]
+    });
 
-    // Liga o GPS do navegador
-    if ('geolocation' in navigator) {
-        navigator.geolocation.watchPosition(function(posicao) {
-            const lat = posicao.coords.latitude;
-            const lng = posicao.coords.longitude;
+    //  Coordenadas reais dos polos em Araraquara
+    const faculdades = [
+        { nome: "IFSP", lat: -21.7840, lng: -48.2107 },
+        { nome: "UNIP", lat: -21.7826, lng: -48.1973 },
+        { nome: "UNIARA", lat: -21.7960, lng: -48.1781 },
+        { nome: "UNESP", lat: -21.8124, lng: -48.1986 },
+        { nome: "FATEC", lat: -21.7735, lng: -48.1365 }
+    ];
 
-            if (marcadorUsuario) {
-                marcadorUsuario.setLatLng([lat, lng]);
-            } else {
-                marcadorUsuario = L.marker([lat, lng], {icon: iconeUsuario}).addTo(mapaUber);
-                marcadorUsuario.bindPopup("<b>Você está aqui!</b>").openPopup();
-                
-                mapaUber.setView([lat, lng], 16);
-                
-                simularOnibusProximo(lat, lng);
-            }
-        }, function(erro) {
-            console.log("Erro de GPS: ", erro);
-        }, {
-            enableHighAccuracy: true 
+    faculdades.forEach(facu => {
+        const marcadorFacu = L.marker([facu.lat, facu.lng], {icon: iconeFaculdade}).addTo(mapaUber);
+        
+        marcadorFacu.bindTooltip(`<b>${facu.nome}</b>`, { direction: 'top', offset: [0, -30] });
+
+        marcadorFacu.on('click', () => {
+            exibeModalFaculdade(facu.nome);
         });
-    }
-
-const containerMapaUber = document.getElementById('mapa-uber');
-
-if (containerMapaUber && typeof L !== 'undefined') {
-    const mapaUber = L.map('mapa-uber').setView([-21.8021, -48.1837], 14);
-
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '© OpenStreetMap'
-    }).addTo(mapaUber);
-
-    const iconeUsuario = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3203/3203071.png', 
-        iconSize: [40, 40],
-        iconAnchor: [20, 40]
-    });
-
-    const iconeOnibus = L.icon({
-        iconUrl: 'https://cdn-icons-png.flaticon.com/512/3448/3448339.png', 
-        iconSize: [45, 45],
-        iconAnchor: [22, 45]
     });
 
     let marcadorUsuario;
-    let marcadorOnibus; // Variável para o pino vermelho do ônibus
-
+    let marcadorOnibus; 
     
     if ('geolocation' in navigator) {
         navigator.geolocation.watchPosition(function(posicao) {
@@ -429,6 +446,7 @@ if (containerMapaUber && typeof L !== 'undefined') {
                 marcadorUsuario.bindPopup("<b>Você está aqui!</b>").openPopup();
                 mapaUber.setView([lat, lng], 16);
                 
+                // Só inicia a busca pelo ônibus após achar o usuário
                 rastrearMotoristaReal();
             }
         }, function(erro) {
@@ -437,28 +455,22 @@ if (containerMapaUber && typeof L !== 'undefined') {
     }
 
     function rastrearMotoristaReal() {
-        setInterval(() => {
-            const dadosDoMotorista = JSON.parse(localStorage.getItem('gps_onibus_simulado'));
-
-            if (dadosDoMotorista) {
-                if (marcadorOnibus) {
-                    marcadorOnibus.setLatLng([dadosDoMotorista.lat, dadosDoMotorista.lng]);
-                } else {
-                    marcadorOnibus = L.marker([dadosDoMotorista.lat, dadosDoMotorista.lng], {icon: iconeOnibus}).addTo(mapaUber);
-                    marcadorOnibus.bindPopup("<b>Ônibus em Rota!</b>").openPopup();
-                }
+        // Conecta ao servidor Node.js
+        const socket = io('http://localhost:3000');
+        
+        //  vai ficar escutando as atualizações do motorista vindas do servidor
+        socket.on('receber_gps', (dadosDoMotorista) => {
+            if (marcadorOnibus) {
+                // Move o ônibus
+                marcadorOnibus.setLatLng([dadosDoMotorista.lat, dadosDoMotorista.lng]);
             } else {
-                if (marcadorOnibus) {
-                    mapaUber.removeLayer(marcadorOnibus);
-                    marcadorOnibus = null;
-                }
+                // Cria o ônibus
+                marcadorOnibus = L.marker([dadosDoMotorista.lat, dadosDoMotorista.lng], {icon: iconeOnibus}).addTo(mapaUber);
+                marcadorOnibus.bindPopup(`<b>${dadosDoMotorista.linha || 'Ônibus'}</b><br>Em trânsito!`).openPopup();
             }
-        }, 2000); 
+        });
     }
 }
-    
-}
-
 
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = {

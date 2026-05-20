@@ -2,7 +2,6 @@
 const containerLista = document.querySelector('.lista-rotas');
 const btnNovaRota = document.querySelector('.btn-nova-rota');
 
-
 function obterRotas() {
     return JSON.parse(localStorage.getItem('rotasClockerBus')) || [];
 }
@@ -28,7 +27,6 @@ function renderizarRotas() {
     }
 
     rotas.forEach(rota => {
-
         const statusAtual = rota.status || 'Em operação';
         const classeStatus = statusAtual === 'Pausada' ? 'pausado' : 'ativo';
         const qtdParadas = rota.pontos ? rota.pontos.length : 0;
@@ -97,7 +95,12 @@ window.editarRota = function(id) {
         }
     }
 };
+
+// ==========================================
+// VARIÁVEIS GLOBAIS DE RASTREAMENTO E CONEXÃO
+// ==========================================
 let idRastreamentoMotorista = null;
+let socketMotorista = null; // Criamos o nosso "rádio" aqui fora!
 
 window.alterarStatusRota = function(id, novoStatus) {
     const rotas = obterRotas();
@@ -108,16 +111,28 @@ window.alterarStatusRota = function(id, novoStatus) {
         salvarRotas(rotas);
         renderizarRotas(); 
 
+        // ==========================================
+        // LÓGICA DO GPS: ENVIANDO PARA O SERVIDOR
+        // ==========================================
         if (novoStatus === 'Em operação') {
             alert("Viagem iniciada! Transmitindo seu GPS para os passageiros...");
+            
+            // Liga o rádio apenas se ele ainda não estiver ligado
+            if (!socketMotorista) {
+                socketMotorista = io('http://localhost:3000'); 
+            }
             
             if ('geolocation' in navigator) {
                 idRastreamentoMotorista = navigator.geolocation.watchPosition(function(posicao) {
                     const gpsData = {
+                        linha: rotas[index].linha, // Enviamos o nome da linha junto
                         lat: posicao.coords.latitude,
                         lng: posicao.coords.longitude
                     };
-                    localStorage.setItem('gps_onibus_simulado', JSON.stringify(gpsData));
+
+                    // Envia para o servidor Node.js
+                    socketMotorista.emit('enviar_gps', gpsData);
+        
                 }, function(erro) {
                     console.log("Erro no GPS do Motorista", erro);
                     alert("Por favor, ative a localização do seu dispositivo para iniciar a rota.");
@@ -127,7 +142,6 @@ window.alterarStatusRota = function(id, novoStatus) {
         } else if (novoStatus === 'Pausada') {
             if (idRastreamentoMotorista) {
                 navigator.geolocation.clearWatch(idRastreamentoMotorista);
-                localStorage.removeItem('gps_onibus_simulado');
                 alert("Viagem pausada. Transmissão de GPS interrompida.");
             }
         }
@@ -143,7 +157,6 @@ if (btnNovaRota) {
 
         let rotas = obterRotas();
         
-        // Cria a nova rota com os dados essenciais
         const novaRota = {
             id: rotas.length > 0 ? Math.max(...rotas.map(r => r.id)) + 1 : 1,
             linha: nomeDaLinha.trim(),
