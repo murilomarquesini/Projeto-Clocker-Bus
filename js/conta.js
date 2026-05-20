@@ -95,7 +95,7 @@ if(usuarioLogado){
         opcoesPerfil.forEach(elemento => elemento.style.display = 'none');
     }
 
-    if(opcaoCadastro){
+   if(opcaoCadastro){
         opcaoCadastro.addEventListener('click', (e) => {
             e.preventDefault(); 
             
@@ -104,7 +104,13 @@ if(usuarioLogado){
             } else if (window.location.pathname.includes('/html/')) {
                 window.location.href = 'cadastro.html';
             } else {
-                window.location.href = 'html/cadastro.html';
+                let urlBase = window.location.href.split('index.html')[0];
+                
+                if (!urlBase.endsWith('/')) {
+                    urlBase += '/';
+                }
+                
+                window.location.href = urlBase + 'html/cadastro.html';
             }
         });
     }
@@ -318,18 +324,19 @@ if(sair){
         localStorage.removeItem("usuarioLogado");
         alert('Saindo...');
         
-        // Retorna para o index 
         if (window.location.pathname.includes('/motorista/')) {
             window.location.href = '../../index.html';
         } else if (window.location.pathname.includes('/html/')) {
             window.location.href = '../index.html';
         } else {
-            window.location.href = 'index.html';
+            let urlBase = window.location.href.split('index.html')[0];
+            if (!urlBase.endsWith('/')) {
+                urlBase += '/';
+            }
+            window.location.href = urlBase + 'index.html';
         }
     }); 
 }
-
-
 
 // --------------------------------------------------------------------------------------
 
