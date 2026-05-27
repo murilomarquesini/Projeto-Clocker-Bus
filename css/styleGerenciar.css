@@ -1,0 +1,70 @@
+.container-rotas{
+    width: 60%;
+    margin: auto;
+}
+
+.topo-rotas h1{
+    margin: 40px;
+    text-align: center;
+    color: #04191fda;
+}
+
+
+.card-rota-motorista{
+    margin-bottom: 30px;
+    width: 100%;
+    background-color: #f1fec6b6;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    padding: 25px;
+}
+
+.info-rota{
+    color: #04191fda;
+    font-size: 18px;
+    padding-left: 10px;
+}
+
+.acoes-rota{
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 25px;
+}
+
+.acoes-rota button{
+    width: 30px;
+    background: transparent;
+    border: none;
+}
+
+.acoes-rota i{
+    color: #04191fda;
+}
+
+
+.modal-footer .botaoRota{
+    width: 100px;
+    height: 35px;
+
+    color: white;
+    border: none;
+    border-radius: 10px;
+}
+
+.modal-footer .botaoCancelarRota{
+    background-color: gray;
+}
+
+.botaoCancelarRota:hover{
+    background-color: rgb(190, 190, 190);
+    color: #04191F;
+}
+
+.modal-footer .botaoSalvarRota{
+    background-color: #34A0A4;
+}
+
+.botaoSalvarRota:hover{
+    background-color: #236e70;
+    color: white;
+}

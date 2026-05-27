@@ -1,0 +1,78 @@
+body {
+    background-color: var(--cor-fundo-geral) !important;
+    color: var(--cor-texto-geral) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#sidebarConta {
+    background-color: var(--cor-fundo-sidebar) !important;
+    transition: background-color 0.3s ease;
+}
+
+#sidebarConta h2,
+#sidebarConta h3,
+#sidebarConta p {
+    color: var(--cor-texto-sidebar) !important;
+    transition: color 0.3s ease;
+}
+
+#sidebarConta .menu-conta a {
+    background-color: var(--cor-detalhes) !important;
+    color: var(--cor-texto-sidebar) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#sidebarConta .menu-conta a:hover {
+    opacity: 0.8;
+}
+
+#fecharSidebar {
+    color: var(--cor-texto-sidebar) !important;
+}
+
+.modal-content {
+    background-color: var(--cor-fundo-pontual) !important;
+    color: var(--cor-texto-geral) !important;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+p, h1, h2, h3, h4, h5, h6, span, label {
+    color: var(--cor-texto-geral);
+}
+
+.botao {
+    background-color: var(--cor-detalhes) !important;
+    color: #ffffff !important;
+    font-size: 16px;
+    font-weight: 600;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.funcaoConfig p {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.funcaoConfig i {
+    font-size: 35px;
+    cursor: pointer;
+    color: var(--cor-texto-icone);
+}
+
+.funcaoConfig button {
+    border: 3px solid var(--cor-texto-icone);
+    border-radius: 12px;
+    color: var(--cor-texto-geral);
+    font-size: 20px;
+    font-weight: bold;
+    background-color: transparent;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+body[style*="--cor-fundo-geral: #121212"] .btn-close {
+    filter: invert(1) grayscale(100%) brightness(200%) !important;
+}

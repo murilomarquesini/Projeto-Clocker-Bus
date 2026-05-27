@@ -84,6 +84,72 @@ input {
     border-radius: 8px;
 }
 
+
+
+.pergunta{
+    margin-top: 5px;
+    margin-left: 10px;
+    color: gray;
+    font-size: 15px;
+}
+
+#tipoUser{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.itemUser{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.opcoesUsusario{
+    margin-top: 10px;
+    margin-left: 5px;
+    margin-bottom: 20px;
+}
+
+.opcoesUsusario label{
+    padding: 0 10px;
+    font-size: 14px;
+    color: #04191fb8;
+    
+}
+
+.opcoesUsusario input[type="radio"]{
+    background-color: transparent;
+    border-radius: 50%;
+    border: 2px solid #04191fb8;
+    width: 16px;
+    height: 16px;
+    place-content: center;
+    cursor: pointer;
+    display: grid; 
+    margin: 0;
+}
+
+.opcoesUsusario input[type="radio"]::before{
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: #236e70; 
+    transform: scale(0);
+    transition: 0.2s transform ease-in-out;
+}
+
+.opcoesUsusario input[type="radio"]:checked::before{
+    transform: scale(1);
+}
+
+.opcoesUsusario input[type="radio"]:checked{
+    border-color: #0e3436;
+}
+
+
 input::-ms-reveal,
 input::-ms-clear {
     display: none;
@@ -159,4 +225,53 @@ footer {
     width: 100%;
     height: auto;
     transform: translate(-20px, -25px); 
+}
+
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.ativo {
+    display: flex;
+}
+
+.modal-box {
+    background: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 35px 30px 25px;
+    width: 320px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#modal-mensagem {
+    color: #04191f;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+#modal-fechar {
+    padding: 10px 30px;
+    background: #34A0A4;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#modal-fechar:hover {
+    background: #64B6AC;
 }

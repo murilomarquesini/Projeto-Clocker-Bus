@@ -15,7 +15,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 
     <link rel="icon" type="image/png" href="../imagens/favicon.png">
+
+    
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/styleConfiguracao.css">
     <link rel="stylesheet" href="../css/styleHistorico.css">
     
 </head>
@@ -32,6 +35,16 @@
             <a href="#" id="btnMinhaConta">Minha Conta</a>
         </nav>
     </header>
+
+
+    <div id="modal-feedback-overlay" class="modal-feedback-overlay">
+        <div class="modal-feedback-box">
+            <div id="modal-feedback-msg"></div>
+            <button id="modal-feedback-fechar">Fechar</button>
+        </div>
+    </div>
+
+
         
     <main id="container-historico">
         <section>
@@ -101,7 +114,6 @@
                 <li><a href="#" id="realizarCadastro">Cadastre-se ou faça seu login</a></li>
 
                 <li><a href="#" class="opcaoPerfil" id="editarPerfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar Perfil</a></li>
-                <li><a href="#" class="opcaoPerfil" id="btnFavoritos">Meus Favoritos</a></li>
                 <li><a href="#" class="opcaoPerfil" id="btnConfiguracoes">Configurações</a></li>
                 <li><a href="#" class="opcaoPerfil" id="sairLogin">Sair</a></li>
             </ul>
@@ -174,14 +186,38 @@
     </div>
 
 
-    <!-- AVISO -->
-    <div id="avisoDev" class="toast-dev">
-        <div class="toast-content">
-            <span class="icone">⚠️</span>
-            <div>
-                <strong>Atenção</strong>
-                <p id="mensagemAviso"></p>
+    <div class="modal fade modalConfiguracao" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Configurações</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="funcaoConfig">
+                        <p><b>Contraste:</b></p>
+
+                        <div class="icones">
+                            <i id="modoClaro" class="fa-solid fa-sun"></i>
+                            <i id="modoEscuro" class="fa-solid fa-moon"></i>
+                        </div>
+                    </div>
+
+                    <div class="funcaoConfig espaco">
+                        <p><b>Tamanho da fonte:</b></p>
+                        
+                        <button id="btnAumentarFonte"><b>A+</b></button>
+                        <button id="btnDiminuirFonte"><b>A-</b></button>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="botao" data-bs-dismiss="modal">Fechar</button>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -215,6 +251,7 @@
 
     <script src="../js/conta.js"></script>
     <script src="../js/historico.js"></script>
+    <script src="../js/configuracao.js"></script>
 
 </body>
 </html>

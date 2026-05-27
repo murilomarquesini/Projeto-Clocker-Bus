@@ -1,3 +1,22 @@
+function showModal(mensagem, callback) {
+    const overlay = document.querySelector('#modal-feedback-overlay');
+    const texto   = document.querySelector('#modal-feedback-msg');
+    const botao   = document.querySelector('#modal-feedback-fechar');
+
+    texto.textContent = mensagem;
+    overlay.classList.add('ativo');
+
+    const novo = botao.cloneNode(true);
+    botao.parentNode.replaceChild(novo, botao);
+
+    novo.addEventListener('click', function () {
+        overlay.classList.remove('ativo');
+        if (typeof callback === 'function') callback();
+    });
+}
+
+
+
 // Selecionando os elementos principais do HTML
 const containerLista = document.querySelector('.lista-rotas');
 const btnNovaRota = document.querySelector('.btn-nova-rota');
@@ -41,6 +60,7 @@ function renderizarRotas() {
         article.innerHTML = `
             <div class="info-rota">
                 <h3>${rota.linha}</h3>
+                <hr>
                 <p>
                     <i class="fa-solid fa-clock"></i>
                     Saída: ${rota.saida}
@@ -59,9 +79,6 @@ function renderizarRotas() {
                 <button class="btn-acao editar" onclick="editarRota(${rota.id})" title="Editar Rota">
                     <i class="fa-solid fa-pen"></i>
                 </button>
-                <button class="btn-acao excluir" onclick="excluirRota(${rota.id})" title="Excluir Rota">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
             </div>
         `;
         
@@ -69,32 +86,74 @@ function renderizarRotas() {
     });
 }
 
-window.excluirRota = function(id) {
-    if(confirm("Tem certeza que deseja excluir permanentemente esta rota?")) {
-        let rotas = obterRotas();
-        rotas = rotas.filter(r => r.id !== id);
-        salvarRotas(rotas);
-        renderizarRotas(); 
-    }
-};
+
 
 window.editarRota = function(id) {
     const rotas = obterRotas();
-    const index = rotas.findIndex(r => r.id === id);
+    const rota = rotas.find(r => r.id === id);
     
-    if(index !== -1) {
-        const novoNome = prompt("Edite o número e nome da linha:", rotas[index].linha);
-        const novaSaida = prompt("Edite o horário de saída:", rotas[index].saida);
+    if(rota) {
+        document.querySelector('#linha').value = rota.linha;
+        document.querySelector('#horario').value = rota.saida !== "--:--" ? rota.saida : "";
         
-        if(novoNome && novoNome.trim() !== "") {
-            rotas[index].linha = novoNome.trim();
-            if(novaSaida) rotas[index].saida = novaSaida.trim();
-            
-            salvarRotas(rotas);
-            renderizarRotas();
+        const inputIdOculto = document.querySelector('#editarId');
+        if (inputIdOculto) {
+            inputIdOculto.value = rota.id;
         }
+
+        const editarRotaModal = document.querySelector('#editarRota');
+        if(editarRotaModal){
+            const modalR = new bootstrap.Modal(editarRotaModal);
+            modalR.show();
+        }   
     }
 };
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const btnSalvar = document.querySelector('#salvarInfoRota');
+
+    if(btnSalvar){
+        btnSalvar.addEventListener('click', () => {
+            const inputIdOculto = document.querySelector('#editarId');
+            
+            if (!inputIdOculto || !inputIdOculto.value) {
+                console.error("ID da rota não encontrado no formulário.");
+                return;
+            }
+
+            const id = parseInt(inputIdOculto.value);
+            const novaLinha = document.querySelector('#linha').value.trim();
+            const novoHorario = document.querySelector('#horario').value;
+
+            if (novaLinha.length < 3) {
+                alert("Digite um nome de linha válido.");
+                return;
+            }
+
+            const rotas = obterRotas();
+            const index = rotas.findIndex(r => r.id === id);
+
+            if(index !== -1){
+                rotas[index].linha = novaLinha;
+                rotas[index].saida = novoHorario ? novoHorario.trim() : "--:--";
+
+                salvarRotas(rotas);
+                renderizarRotas();
+
+                const elementoModal = document.querySelector('#editarRota');
+                const modalInstance = bootstrap.Modal.getInstance(elementoModal);
+                if (modalInstance) {
+                    modalInstance.hide();
+                }
+            } 
+        });
+    }
+});
+
+
+
+
 let idRastreamentoMotorista = null;
 let socketMotorista = null;
 
@@ -140,30 +199,5 @@ window.alterarStatusRota = function(id, novoStatus) {
     }
 };
 
-if (btnNovaRota) {
-    btnNovaRota.addEventListener('click', () => {
-        const nomeDaLinha = prompt("Digite o número e destino da nova linha\n(Ex: 099 - Bairro Novo):");
-        if (!nomeDaLinha || nomeDaLinha.trim() === "") return;
-
-        const horarioSaida = prompt("Qual o horário previsto de saída?\n(Ex: 07:30)");
-
-        let rotas = obterRotas();
-        
-        const novaRota = {
-            id: rotas.length > 0 ? Math.max(...rotas.map(r => r.id)) + 1 : 1,
-            linha: nomeDaLinha.trim(),
-            saida: horarioSaida || "--:--",
-            previsao: "No horário",
-            chegada: "--:--",
-            pontos: [], 
-            status: "Em operação",
-            imagem: "https://via.placeholder.com/100x70?text=Novo"
-        };
-
-        rotas.push(novaRota);
-        salvarRotas(rotas);
-        renderizarRotas();
-    });
-}
 
 renderizarRotas();

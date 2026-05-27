@@ -28,8 +28,7 @@ describe('Testes da Página de Histórico', () => {
             const linhaMock = {
                 linha: "042 - Centro / Shopping",
                 saida: "14:00",
-                chegada: "14:45",
-                previsao: "No horário",
+                status: "No horário",
                 pontos: ["Terminal", "Avenida"]
             };
 
@@ -61,16 +60,29 @@ describe('Testes da Página de Histórico', () => {
         test('Deve criar os cards corretamente se o usuário tiver histórico salvo', () => {
     
             const rotasMock = [
-                { id: 1, linha: "010 - Circular", previsao: "No horário" },
-                { id: 2, linha: "020 - Bairro", previsao: "Atrasado" }
+                { 
+                    id: 1,
+                    linha: "010 - Circular",
+                    status: "No horário",
+                    saida: "14:00",
+                    lotacao: "Baixa"
+                },
+                { 
+                    id: 2,
+                    linha: "020 - Bairro",
+                    status: "Atrasado",
+                    saida: "14:10",
+                    lotacao: "Alta"
+                }
             ];
+
             localStorage.setItem('rotasClockerBus', JSON.stringify(rotasMock));
 
             localStorage.setItem('usuarioLogado', JSON.stringify({ historicoLinhas: [1, 2] }));
             exibeHistorico();
 
             const historicoDiv = document.getElementById('historico');
-            const cards = historicoDiv.querySelectorAll('.card');
+            const cards = historicoDiv.querySelectorAll('.card-rota');
 
             expect(cards.length).toBe(2);
             
@@ -84,7 +96,13 @@ describe('Testes da Página de Histórico', () => {
 
         test('Deve abrir o Modal do Bootstrap ao clicar em "Mais Informações"', () => {
             
-            localStorage.setItem('rotasClockerBus', JSON.stringify([{ id: 10, linha: "100 - Teste", pontos: [] }]));
+            localStorage.setItem('rotasClockerBus', JSON.stringify([{
+                id: 10,
+                linha: "100 - Teste",
+                status: "No horário",
+                saida: "14:00",
+                pontos: []
+            }]));
             
             document.body.innerHTML += `<a class="informacoes" data-rota-id="10" href="#">Mais Informações</a>`;
 
@@ -94,5 +112,4 @@ describe('Testes da Página de Histórico', () => {
             expect(global.bootstrap.Modal).toHaveBeenCalled();
         });
     });
-    
 });

@@ -2,174 +2,292 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <title>Gerenciar Rotas | ClockerBus</title>
+    <title>ClockerBus - Gerenciar Rotas</title>
 
-    <!-- CSS do projeto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Poppins:wght@600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <link rel="icon" type="image/png" href="./imagens/favicon.png">
+
+    <link rel="stylesheet" href="../css/styleConfiguracao.css">
+    <link rel="stylesheet" href="../css/styleGerenciar.css">
     <link rel="stylesheet" href="../css/style.css">
-
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
 
-<!-- ================= HEADER ================= -->
+    <header class="header">
+        <div class="logo">
+            <i class="fa-solid fa-bus"></i>
+            <span>CL<i class="fa-regular fa-clock" style="font-size: 20px;"></i>CKER BUS</span>
+        </div>
+        <nav>
+            <a href="./gerenciarRotas.html" class="ativo">Gerenciar Rotas</a>
+            <a href="#" id="btnMinhaConta">Minha Conta</a>
+        </nav>
+    </header>
 
-<header class="header">
 
-    <div class="logo">
-        <i class="fa-solid fa-bus"></i>
-        <h2>ClockerBus</h2>
+    <main class="container-rotas">
+        <section class="topo-rotas">
+            <h1><i class="fa-solid fa-route"></i>  Gerenciar Rotas</h1>
+            <hr>
+        </section>
+
+        <section class="lista-rotas"></section>
+    </main>
+
+
+    <div class="modal fade" id="editarRota" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="hidden" id="editarId">
+
+                    <div class="conteudoCampos">
+                        <h5>Editar informações da rota</h5>
+
+                        <div class="campo">
+                            <label for="linha">Linha:</label> <br>
+                            <input type="text" id="linha" placeholder="digite aqui" pattern="^\d{3}\s-\s.+$"> <br><br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="horario">Horário:</label> <br>
+                            <input type="time" id="horario" placeholder="digite aqui"> 
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="botaoRota botaoCancelarRota">Cancelar</button>
+                    <button type="button" class="botaoRota botaoSalvarRota" id="salvarInfoRota">Salvar</button>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <nav class="menu">
-        <a href="../index.html">Início</a>
-        <a href="#">Minha Conta</a>
-        <a class="ativo">Gerenciar Rotas</a>
-    </nav>
 
-</header>
-
-
-<!-- ================= CONTEÚDO ================= -->
-
-<main class="container-rotas">
-
-    <!-- TÍTULO -->
-    <section class="topo-rotas">
-
-        <h1>
-            <i class="fa-solid fa-route"></i>
-            Gerenciar Rotas
-        </h1>
-
-        <button class="btn-nova-rota">
-            <i class="fa-solid fa-plus"></i>
-            Nova Rota
-        </button>
-
-    </section>
+    <footer>
+        <a href="#">Seja Parceiro e Investidor</a>
+        <a href="#">Entre em Contato</a>
+        <a href="#">Trabalhe Conosco</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Investidores e Parceiros</a>
+    </footer>
 
 
 
-    <!-- ================= LISTA DE ROTAS ================= -->
+    <!--Minha Conta-->
 
-    <section class="lista-rotas">
+    <div id="modal-feedback-overlay" class="modal-feedback-overlay">
+        <div class="modal-feedback-box">
+            <div id="modal-feedback-msg"></div>
+            <button id="modal-feedback-fechar">Fechar</button>
+        </div>
+    </div>
 
-        <!-- ROTA 1 -->
-        <article class="card-rota-motorista">
+        <!-- Modal de CONFIRMAÇÃO (substitui confirm()) -->
+    <div id="modal-confirm-overlay" class="modal-feedback-overlay">
+        <div class="modal-feedback-box">
+            <div id="modal-confirm-msg"></div>
+            <div class="modal-confirm-botoes">
+                <button id="modal-confirm-ok">Confirmar</button>
+                <button id="modal-confirm-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de ENTRADA (substitui prompt()) -->
+    <div id="modal-prompt-overlay" class="modal-feedback-overlay">
+        <div class="modal-feedback-box">
+            <div id="modal-prompt-msg"></div>
+            <input type="text" id="modal-prompt-input" class="modal-prompt-input">
+            <div class="modal-confirm-botoes">
+                <button id="modal-prompt-ok">Confirmar</button>
+                <button id="modal-prompt-cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
+ 
 
-            <div class="info-rota">
+    <!-- OVERLAY -->
+    <div id="overlay"></div>
 
-                <h3>IFSP → Terminal Central</h3>
+    <!-- SIDEBAR -->
+    <div id="sidebarConta" class="sidebar-conta">
+        <div class="sidebar-header">
+            <h2>Minha Conta</h2>
+            <button id="fecharSidebar">&times;</button>
+        </div>
 
-                <p>
-                    <i class="fa-solid fa-clock"></i>
-                    Saída: 06:30
-                </p>
+        <div class="sidebar-content">
+            <div class="perfil">
+                <div class="foto-perfil">
+                    <img id="exibirAvatar" class="imgAvatar" src="" alt="Avatar">
+                </div>
 
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>
-                    12 paradas cadastradas
-                </p>
-
-                <span class="status ativo">
-                    ● Em operação
-                </span>
-
+                <h3 id="nomeUsuario"></h3>
+                <p id="emailUsuario"></p>
             </div>
 
-            <div class="acoes-rota">
+            <ul class="menu-conta">
+                <li><a href="#" id="realizarCadastro">Cadastre-se ou faça seu login</a></li>
 
-                <button class="btn-acao iniciar">
-                    <i class="fa-solid fa-play"></i>
-                </button>
+                <li><a href="#" class="opcaoPerfil" id="editarPerfil" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar Perfil</a></li>
+                <li><a href="#" class="opcaoPerfil" id="btnConfiguracoes">Configurações</a></li>
+                <li><a href="#" class="opcaoPerfil" id="sairLogin">Sair</a></li>
+            </ul>
+        </div>
+    </div>
 
-                <button class="btn-acao editar">
-                    <i class="fa-solid fa-pen"></i>
-                </button>
+    
 
-                <button class="btn-acao pausar">
-                    <i class="fa-solid fa-pause"></i>
-                </button>
+    <!-- EDITAR PERFIL -->
 
-                <button class="btn-acao excluir">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
+    <div class="modal fade modalPerfil" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="avatar">
+                        <i class="fa-solid fa-chevron-left seta" id="esquerda"></i>
+
+                        <div class="fotoPerfilModal">
+                            <img id="editarAvatar" class="imgAvatar" src="" alt="Avatar">
+                        </div>
+
+                        <i class="fa-solid fa-chevron-right seta" id="direita"></i>
+                    </div>
+
+                    <div class="conteudoCampos">
+                        <hr>
+                        <p>Deixe em branco se não quiser alterar a informação</p>
+
+                        <h5>Alterar nome</h5>
+
+                        <div class="campo">
+                            <label for="nomePerfil">Nome:</label> <br>
+                            <input type="text" id="nomePerfil" placeholder="digite aqui" minlength="5" pattern="^[A-Za-zÀ-ÿ\s']+$"> <br><br>
+                        </div>
+
+                        <h5>Alterar senha</h5>
+
+                        <div class="campo">
+                            <label for="senhaAtual">Senha atual:</label> <br>
+
+                            <div class="senha-container">
+                                <input type="password" id="senhaAtual" placeholder="digite aqui"> 
+                                <i class="fa-solid fa-eye olho-senha"></i>
+                            </div> <br>
+                        </div>
+
+                        <div class="campo">
+                            <label for="senhaNova">Nova senha:</label> <br>
+
+                            <div class="senha-container">
+                                <input type="password" id="senhaNova" placeholder="digite aqui" pattern="^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&#]).{8,}$"> 
+                                <i class="fa-solid fa-eye olho-senha"></i>
+                            </div> <br>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="botao botaoCancelar" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="botao botaoSalvar" id="salvarPerfil" data-bs-dismiss="modal">Salvar</button>
+                </div>
             </div>
 
-        </article>
+        </div>
+    </div>
 
 
+    <div class="modal fade modalConfiguracao" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 
-        <!-- ROTA 2 -->
-        <article class="card-rota-motorista">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5>Configurações</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
 
-            <div class="info-rota">
+                <div class="modal-body">
+                    <div class="funcaoConfig">
+                        <p><b>Contraste:</b></p>
 
-                <h3>Centro → Campus Universitário</h3>
+                        <div class="icones">
+                            <i id="modoClaro" class="fa-solid fa-sun"></i>
+                            <i id="modoEscuro" class="fa-solid fa-moon"></i>
+                        </div>
+                    </div>
 
-                <p>
-                    <i class="fa-solid fa-clock"></i>
-                    Saída: 07:40
-                </p>
+                    <div class="funcaoConfig espaco">
+                        <p><b>Tamanho da fonte:</b></p>
+                        
+                        <button id="btnAumentarFonte"><b>A+</b></button>
+                        <button id="btnDiminuirFonte"><b>A-</b></button>
+                    </div>
+                </div>
 
-                <p>
-                    <i class="fa-solid fa-location-dot"></i>
-                    8 paradas cadastradas
-                </p>
-
-                <span class="status pausado">
-                    ● Pausada
-                </span>
-
+                <div class="modal-footer">
+                    <button type="button" class="botao" data-bs-dismiss="modal">Fechar</button>
+                </div>
             </div>
 
-            <div class="acoes-rota">
-
-                <button class="btn-acao iniciar">
-                    <i class="fa-solid fa-play"></i>
-                </button>
-
-                <button class="btn-acao editar">
-                    <i class="fa-solid fa-pen"></i>
-                </button>
-
-                <button class="btn-acao excluir">
-                    <i class="fa-solid fa-trash"></i>
-                </button>
-
-            </div>
-
-        </article>
+        </div>
+    </div>
 
 
+    <script>
+        window.onload = function() {
 
-        <!-- ROTA VAZIA (EXEMPLO) -->
-        <article class="card-vazio">
+            var btn = document.getElementById("btnMinhaConta");
+            var sidebar = document.getElementById("sidebarConta");
+            var overlay = document.getElementById("overlay");
+            var fechar = document.getElementById("fecharSidebar");
 
-            <i class="fa-solid fa-bus"></i>
-            <p>Nenhuma nova rota cadastrada.</p>
+            btn.onclick = function(e){
+                e.preventDefault();
+                sidebar.style.right = "0";
+                overlay.style.display = "block";
+            }
 
-        </article>
+            fechar.onclick = function(){
+                sidebar.style.right = "-350px";
+                overlay.style.display = "none";
+            }
 
-    </section>
+            overlay.onclick = function(){
+                sidebar.style.right = "-350px";
+                overlay.style.display = "none";
+            }
 
-</main>
+        }
+    </script>
 
 
-<footer class="footer">
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
 
-    <p>© 2025 ClockerBus — Sistema de Rotinas e Transporte Acadêmico</p>
-
-</footer>
-
-<script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
-
-<script src="../js/gerenciarRotas.js"></script>
-
+    <script src="../js/gerenciarRotas.js"></script>
+    <script src="../js/conta.js"></script>
+    <script src="../js/configuracao.js"></script>
+    
 </body>
 </html>

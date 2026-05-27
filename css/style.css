@@ -24,6 +24,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 h1, h2, h3, nav a, .button, .font-oswald {
@@ -40,6 +41,7 @@ header {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
 }
 
 .logo {
@@ -81,16 +83,15 @@ nav a.ativo, nav a:hover {
 /*PÁGINA INICIAL*/
 
 .busca-container {
-    /*text-align: center;*/
-    width: 60%;  /*tirar depois para voltar como estava antes*/
-    margin: auto;  /*tirar depois para voltar como estava antes*/
+    width: 60%;  
+    margin: auto;  
     padding: 30px 20px;
 }
 
 .busca-container h2 {
     color: var(--cor-texto-geral);
     text-transform: uppercase;
-    margin-top: 30px;  /*tirar depois para voltar como estava antes*/
+    margin-top: 30px;  
     margin-bottom: 20px;
     font-size: 22px;
     text-decoration: underline;
@@ -117,6 +118,7 @@ nav a.ativo, nav a:hover {
     font-size: 14px;
     outline: none;
     flex-grow: 1;
+    transition: background-color 0.3s ease;
 }
 
 .botoesBusca{
@@ -126,7 +128,7 @@ nav a.ativo, nav a:hover {
 }
 
 .botaoIndex {
-    background-color: #236e70;
+    background-color: var(--cor-detalhes);
     border: none;
     padding: 10px 40px;
     border-radius: 30px;
@@ -136,12 +138,11 @@ nav a.ativo, nav a:hover {
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 500;
-
 }
 
 .botaoIndex:hover {
     background-color: var(--cor-fundo-pontual);
-    color: #0e3436;
+    color: var(--cor-texto-geral);
 }
 
 
@@ -149,7 +150,7 @@ nav a.ativo, nav a:hover {
 
 h5{
     margin-top: 15px;
-    color: #04191f9a;
+    color: var(--cor-texto-geral);
     font-family: 'Oswald', sans-serif;
 }
 
@@ -169,12 +170,6 @@ h5{
     gap: 10px;
 }
 
-#periodo{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
 .item-radio{
     display: flex;
     gap: 10px;
@@ -190,15 +185,14 @@ h5{
     padding: 0 10px;
     font-size: 16px;
     font-family: 'Oswald', sans-serif;
-    color: #04191fb8;
-    
+    color: var(--cor-texto-geral); 
 }
 
 .opcoesFiltro input[type="radio"]{
     appearance: none;
     background-color: transparent;
     border-radius: 50%;
-    border: 2px solid #04191fb8;
+    border: 2px solid var(--cor-texto-geral);
     width: 1.15em;
     height: 1.15em;
     place-content: center;
@@ -212,7 +206,7 @@ h5{
     width: 0.65em;
     height: 0.65em;
     border-radius: 50%;
-    background-color: #236e70; 
+    background-color: var(--cor-detalhes); 
     transform: scale(0);
     transition: 0.2s transform ease-in-out;
 }
@@ -222,7 +216,7 @@ h5{
 }
 
 .opcoesFiltro input[type="radio"]:checked{
-    border-color: #0e3436;
+    border-color: var(--cor-detalhes);
 }
 
 
@@ -278,6 +272,7 @@ main {
     align-items: flex-start;
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
 }
 
 .card-img {
@@ -299,7 +294,7 @@ main {
 .card-conteudo h3{
     margin-bottom: 15px;
     font-size: 1.1rem;
-    color: #0e3436;
+    color: var(--cor-texto-geral);
 }
 
 .card-info {
@@ -346,31 +341,21 @@ main {
     margin: 10px auto;
     display: block;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 
 /*MAPA PRINCIPAL*/
 
-.mapa-container {
-    flex: 1;
-    background-color: #ddd;
-    background-image: url('https://via.placeholder.com/600x400?text=Mapa+Principal');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    min-height: 300px;
-    border: 5px solid rgba(255,255,255,0.3);
-}
-
 #mapa{
     margin: 50px auto;
 }
 
-.pino-mapa {
-    position: absolute;
-    color: #ff3b3b;
-    font-size: 40px;
-    filter: drop-shadow(0px 4px 2px rgba(0,0,0,0.4));
+#mapa #mapa-uber{
+    height: 550px; 
+    border-radius: 8px; 
+    border: 2px solid var(--cor-detalhes); 
+    z-index: 1;
 }
 
 
@@ -383,6 +368,7 @@ footer {
     gap: 30px;
     padding: 20px;
     font-family: 'Oswald', sans-serif;
+    transition: background-color 0.3s ease;
 }
 
 footer a {
@@ -392,21 +378,15 @@ footer a {
     text-transform: uppercase;
 }
 
-
-
-/* ===== SIDEBAR ===== */
-
-/* ===== SIDEBAR MODERNA ===== */
-
 .sidebar-conta {
     position: fixed;
     top: 0;
     right: -360px;
     width: 360px;
     height: 100vh;
-    background: linear-gradient(180deg, #F1FEC6, #B6D6CC);
+    background: linear-gradient(180deg, var(--cor-fundo-pontual), var(--cor-fundo-geral));
     box-shadow: -8px 0 25px rgba(0,0,0,0.25);
-    transition: 0.4s ease;
+    transition: right 0.4s ease, background 0.3s ease;
     z-index: 1001;
     padding: 30px 25px;
     display: flex;
@@ -424,7 +404,7 @@ footer a {
     font-family: 'Oswald', sans-serif;
     font-size: 22px;
     text-transform: uppercase;
-    color: #04191F;
+    color: var(--cor-texto-geral); 
 }
 
 .sidebar-header button {
@@ -432,7 +412,7 @@ footer a {
     border: none;
     font-size: 30px;
     cursor: pointer;
-    color: #04191F;
+    color: var(--cor-texto-geral);
 }
 
 .sidebar-content {
@@ -451,10 +431,8 @@ footer a {
     width: 95px;
     height: 95px;
     border-radius: 50%;
-    /*background: #64B6AC;*/
     margin: 0 auto 12px auto;
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -469,11 +447,13 @@ footer a {
     font-family: 'Oswald', sans-serif;
     font-size: 18px;
     margin-bottom: 5px;
+    color: var(--cor-texto-geral);
 }
 
 .perfil p {
     font-size: 14px;
     opacity: 0.7;
+    color: var(--cor-texto-geral);
 }
 
 
@@ -496,19 +476,19 @@ footer a {
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;
     font-size: 14px;
-    color: #04191F;
-    background: rgba(255,255,255,0.5);
+    color: var(--cor-texto-geral); 
+    background: var(--cor-fundo-pontual); 
     transition: 0.3s;
 }
 
 .menu-conta a:hover {
-    background: #34A0A4;
+    background: var(--cor-detalhes);
     color: white;
     transform: translateX(5px);
 }
 
 
-/* OVERLAY MAIS SUAVE */
+/* OVERLAY */
 
 #overlay {
     position: fixed;
@@ -522,30 +502,17 @@ footer a {
     backdrop-filter: blur(3px);
 }
 
-#overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: rgba(0,0,0,0.4);
-    display: none;
-    z-index: 1000;
-}
-
-
-
-/* MODAL EDITAR PERFIL */
-
 .modal-content{
-    background: linear-gradient(#f5ffd6, #cee3dc);
+    
+    background: linear-gradient(180deg, var(--cor-fundo-pontual), var(--cor-fundo-geral));
+    transition: background 0.3s ease;
 }
 
 .modal-content .fotoPerfilModal{
     width: 140px;
     height: 140px;
     border-radius: 50%;
-    background: #f5ffd6;
+    background: var(--cor-fundo-pontual);
     box-shadow: 0 6px 15px rgba(0,0,0,0.2);
 
     display: flex;
@@ -562,7 +529,6 @@ footer a {
     flex-direction: row;
     align-items: center;
     justify-content: center;
-
     position: relative;
     margin: 0 auto;
     gap: 15px;
@@ -572,6 +538,7 @@ footer a {
     font-size: 20px;
     cursor: pointer;
     transition: 0.2s;
+    color: var(--cor-texto-geral);
 }
 .seta:hover{
     transform: scale(1.2);
@@ -584,7 +551,7 @@ footer a {
 
 .conteudoCampos h5{
     margin-top: 15px;
-    color: #04191f9a;
+    color: var(--cor-texto-geral);
     font-family: 'Oswald', sans-serif;
 }
 
@@ -592,11 +559,12 @@ footer a {
     margin: 0 0 25px 0;
     text-align: center;
     font-size: medium;
-    color: rgba(128, 128, 128, 0.9);
+    color: var(--cor-texto-geral);
+    opacity: 0.8;
 }
 
 .campo label{
-    color: #04191F;
+    color: var(--cor-texto-geral); 
     margin: 10px 0 5px 0;
 }
 
@@ -604,10 +572,10 @@ footer a {
     width: 100%;
     height: 35px;
     padding: 15px;
-
     background-color: rgba(255, 255, 255, 0.5);
     border: none;
     border-radius: 10px;
+    color: #000; 
 }
 
 input::-ms-reveal,
@@ -629,7 +597,7 @@ input::-ms-clear {
 }
 
 .olho-senha{
-    position: absolute;
+    position: absolute; 
     right: 20px;
     top: 50%;
     transform: translateY(-50%);
@@ -642,7 +610,6 @@ input::-ms-clear {
 .modal-footer .botao{
     width: 100px;
     height: 35px;
-
     color: white;
     border: none;
     border-radius: 10px;
@@ -658,25 +625,24 @@ input::-ms-clear {
 }
 
 .modal-footer .botaoSalvar{
-    background-color: #34A0A4;
+    background-color: var(--cor-detalhes);
 }
 
 .botaoSalvar:hover{
-    background-color: #236e70;
+    opacity: 0.8;
     color: white;
 }
 
 
-
-/* AVISOS */
+/* AVISOS E MODAIS EXTRAS */
 
 .toast-dev {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    background: linear-gradient(135deg, #ffe082, #F1FEC6);
-    color: #A31300;
+    background: linear-gradient(135deg, #ffe082, var(--cor-fundo-pontual));
+    color: var(--cor-alerta);
     padding: 25px 30px;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3);
@@ -719,4 +685,52 @@ input::-ms-clear {
 
 .btn-click:hover {
     opacity: 0.7;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.ativo {
+    display: flex;
+}
+
+.modal-box {
+    background: var(--cor-fundo-geral);
+    border: 1px solid var(--cor-detalhes);
+    border-radius: 20px;
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 35px 30px 25px;
+    width: 320px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#modal-mensagem {
+    color: var(--cor-texto-geral); 
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+#modal-fechar {
+    padding: 10px 30px;
+    background: var(--cor-detalhes);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+#modal-fechar:hover {
+    opacity: 0.8;
 }
